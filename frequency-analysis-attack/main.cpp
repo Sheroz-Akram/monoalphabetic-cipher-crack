@@ -61,7 +61,7 @@ void frequencyAnalysis(char * &alphabets, float * &frequency, char * cipherText,
     cout << "Total Usable Characters (without Numbers & Special Characters): " << totalCount << endl;
 
     // Our Frequency Table
-    cout << endl << "**** Frequency Table ****" << endl;
+    cout << endl << "**** Frequency Table ****";
     for(int i = 0; i < 26; i++){
         if(i % 5 == 0){
             cout << endl;
@@ -71,19 +71,51 @@ void frequencyAnalysis(char * &alphabets, float * &frequency, char * cipherText,
 
     // Calculate the percentages
     for(int i = 0; i < 26; i++){
-        frequency[i] = frequency[i] / totalCount;
+        frequency[i] = (frequency[i] * 100) / totalCount;
     }
 
     // Our Frequency Percentage Table
-    cout << endl << endl << "**** Frequency Percentage Table ****" << endl;
+    cout << endl << endl << "**** Frequency Percentage Table ****";
     for(int i = 0; i < 26; i++){
         if(i % 5 == 0){
             cout << endl;
         }
-        cout << alphabets[i] << " : " << (int) (frequency[i] * 100) << "%" << "\t|\t";
+        cout << alphabets[i] << " : " << (int) (frequency[i]) << "%" << "\t|\t";
     }
 }
 
+/*
+
+Sort both arrays by their frequency
+
+*/
+void sortByFrequency(char * &alphabets, float * &frequency){
+    for(int i = 0; i < 25 ; i++){
+        for(int k = i + 1; k < 26; k++){
+            if(frequency[i] < frequency[k]){
+
+                // Swap the Values
+                float temp = frequency[k];
+                frequency[k] = frequency[i];
+                frequency[i] = temp;
+
+                // Swap the Alphabets
+                char tempC = alphabets[k];
+                alphabets[k] = alphabets[i];
+                alphabets[i] = tempC;
+
+            }
+        }
+    }
+
+
+    // Frequency based letters
+    cout  << endl << endl << "**** Letters sorted to frequency ****" << endl;
+    for(int i = 0; i < 26 ; i++){
+        cout << alphabets[i] << " " ;
+    }
+    cout << endl;
+}
 
 int main()
 {
@@ -97,11 +129,16 @@ int main()
     }
 
     // Now we do frequency analysis
-    char* alphabets = "abcdefghijklmnopqrstuvwxyz";
+    char * alphabets = new char[26];
+    for (int i = 0; i < 26; i++) {
+        alphabets[i] = 'a' + i;
+    }
     float * frequencyPercentage = new float[26];
 
     frequencyAnalysis(alphabets, frequencyPercentage, cipherText, countCharacters);
 
     // Sort Arrays to their Respected frequency
+    sortByFrequency(alphabets, frequencyPercentage);
+
     return 0;
 }
