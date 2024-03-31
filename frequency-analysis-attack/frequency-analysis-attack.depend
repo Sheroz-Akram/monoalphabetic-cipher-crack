@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1711887022 source:c:\users\sheroz akram\desktop\monoalphabetic-cipher-crack\frequency-analysis-attack\main.cpp
+	<iostream>
+	<fstream>
+	<vector>
+
